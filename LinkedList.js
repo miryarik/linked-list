@@ -5,6 +5,71 @@ class LinkedList {
         this.head = null;
     }
 
+    removeAt(index) {
+        // remove node at given index
+
+        // if list is empty, return
+        if (this.head === null) return;
+
+        // if index is zero, remove using head
+        if (index === 0) {
+            // put head -> first.next
+            // first.next -> null
+            let first = this.head;
+            this.head = first.next;
+            first.next = null;
+
+            return;
+        }
+
+        // traverse to index - 1 (prev)
+        let prev = this.head;
+        for (let i = 0; i < index - 1; i++) {
+            prev = prev.next;
+        }
+        // prev point to current.next
+        // current point to null
+        let current = prev.next;
+        prev.next = current.next;
+        current.next = null;
+    }
+
+    insertAt(value, index) {
+        // insert node with value at index
+
+        // create node
+        const newNode = new Node(value);
+
+        // if list is empty and index is not 0, return
+        if (this.head === null && index != 0) return;
+
+        // if list is empty but index is 0
+        // assign first node
+        if (this.head === null) {
+            this.head = newNode;
+            return;
+        }
+
+        // if index is 0 and list is non empty
+        // prepend / insert at start
+        if (index === 0) {
+            this.prepend(value)
+            return
+        }
+        
+        // else traverse to 1 before index
+        let prev = this.head;
+        for(let i = 0; i < (index - 1); i++) {
+            prev = prev.next;
+        }
+
+        // make node.next -> index
+        // and prev.next -> node
+        newNode.next = prev.next;
+        prev.next = newNode;
+
+    }
+
     toString() {
         // return li as formatted string
         // ( value ) -> ( value ) -> null
@@ -172,14 +237,14 @@ class Node {
 
 // testing
 
-li = new LinkedList();
-
-li.append("Second");
-li.prepend("first");
-li.append("third");
-li.prepend("START");
-li.append("END");
+list = new LinkedList();
 
 
+list.append("dog");
+list.append("cat");
+list.append("parrot");
+list.append("hamster");
+list.append("snake");
+list.append("turtle");
 
-
+console.log(list.toString());
